@@ -1,0 +1,21 @@
+python3 -m venv .venv
+source .venv/bin/activate
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+spark-submit consumer.py
+sudo systemctl start mongod
+sudo systemctl status mongod
+alias spark-submit='/home/yigal/spark-3.3.1-bin-hadoop3/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --driver-class-path postgresql-42.5.1.jar --jars postgresql-42.5.1.jar'
+
+/home/yigal/spark-3.3.1-bin-hadoop3/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --driver-class-path postgresql-42.5.1.jar --jars postgresql-42.5.1.jar consumer.py
+
+sudo -i -u postgres
+psql
+\l - show dbs
+\c - connect to db
+\dt - show tables
+
+
+select * from air_data;
+
+drop table air_data
